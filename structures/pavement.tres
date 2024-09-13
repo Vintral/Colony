@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Structure" load_steps=3 format=3 uid="uid://dbkgp1que5lev"]
+
+[ext_resource type="PackedScene" uid="uid://diu0dl2v0rpfo" path="res://models/pavement.glb" id="1_q0utq"]
+[ext_resource type="Script" path="res://scripts/Structure.cs" id="1_sckfx"]
+
+[resource]
+script = ExtResource("1_sckfx")
+Model = ExtResource("1_q0utq")
+Price = 10

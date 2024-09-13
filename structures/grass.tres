@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Structure" load_steps=3 format=3 uid="uid://biygvnoxm7cyj"]
+
+[ext_resource type="Script" path="res://scripts/Structure.cs" id="1_4jnnq"]
+[ext_resource type="PackedScene" uid="uid://l21gc3qa58hr" path="res://models/grass.glb" id="1_ops10"]
+
+[resource]
+script = ExtResource("1_4jnnq")
+Model = ExtResource("1_ops10")
+Price = 10

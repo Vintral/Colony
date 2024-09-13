@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://d17bww4irxsw0"]
+
+[ext_resource type="Script" path="res://scripts/main_new.cs" id="1_7cmni"]
+[ext_resource type="Script" path="res://scripts/Camera.cs" id="1_o1qj5"]
+[ext_resource type="Script" path="res://scripts/PlanetNoise.cs" id="5_e1gll"]
+[ext_resource type="PackedScene" uid="uid://dcf3ricrudc4a" path="res://planet.tscn" id="5_qfi5i"]
+[ext_resource type="Script" path="res://scripts/FPS.cs" id="6_8rhgi"]
+
+[sub_resource type="Gradient" id="Gradient_h0rru"]
+colors = PackedColorArray(0.0294876, 0.266672, 1, 1, 1.54018e-06, 0.506974, 0.473284, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ceque"]
+gradient = SubResource("Gradient_h0rru")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_u78qi"]
+seed = 6
+frequency = 0.0049
+
+[sub_resource type="Resource" id="Resource_5u4uj"]
+script = ExtResource("5_e1gll")
+NoiseMap = SubResource("FastNoiseLite_u78qi")
+MinHeight = 0.325
+Amplitude = 0.815
+UseFirstLayerAsMask = false
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_7cmni")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FPS" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("6_8rhgi")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
+fov = 50.4
+script = ExtResource("1_o1qj5")
+Distance = 17.0
+MinDistance = 7.0
+MaxDistance = 17.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.882948, 0.221127, 0.414134, 0, 0.882127, -0.471012, -0.469472, 0.415879, 0.778872, 0, 0, 192.179)
+visible = false
+light_color = Color(0.864006, 0.862173, 1, 1)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.634528, 0, 0.7729, 0, 1, 0, -0.7729, 0, 0.634528, 14.9748, 0, 12.7021)
+light_energy = 16.0
+light_specular = 0.595
+shadow_enabled = true
+spot_range = 4096.0
+spot_angle = 20.02
+
+[node name="Planet" parent="." instance=ExtResource("5_qfi5i")]
+PlanetColor = SubResource("GradientTexture1D_ceque")
+Radius = 5.0
+Size = 50
+Noise = [SubResource("Resource_5u4uj")]

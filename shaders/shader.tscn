@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://bbftmhxs0f7mk"]
+
+[ext_resource type="Shader" path="res://shaders/SimpleWater.gdshader" id="1_txsv0"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_c501a"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vegga"]
+noise = SubResource("FastNoiseLite_c501a")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_meulo"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_knplx"]
+as_normal_map = true
+noise = SubResource("FastNoiseLite_meulo")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mn2vb"]
+render_priority = 0
+shader = ExtResource("1_txsv0")
+shader_parameter/height_scale = 0.5
+shader_parameter/noise = SubResource("NoiseTexture2D_vegga")
+shader_parameter/normalmap = SubResource("NoiseTexture2D_knplx")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_or73a"]
+lightmap_size_hint = Vector2i(-4238, 12)
+material = SubResource("ShaderMaterial_mn2vb")
+uv2_padding = 5.13
+subdivide_width = 32
+subdivide_depth = 32
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_or73a")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.98821, 0, 0)
+mesh = SubResource("PlaneMesh_or73a")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.81806, 0.306038, -0.00248772)
+visible = false

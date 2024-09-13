@@ -1,0 +1,101 @@
+[gd_scene load_steps=23 format=3 uid="uid://ccsxjilajvv7r"]
+
+[ext_resource type="Script" path="res://scripts/main.cs" id="1_6qubp"]
+[ext_resource type="Script" path="res://scripts/Builder.cs" id="2_jeyxv"]
+[ext_resource type="Resource" uid="uid://4pwii86ilbur" path="res://structures/road-straight.tres" id="3_2slsx"]
+[ext_resource type="Resource" uid="uid://bftcquicigv30" path="res://structures/road-straight-lightposts.tres" id="4_wrq3d"]
+[ext_resource type="Resource" uid="uid://bewt02x2l1lc3" path="res://structures/road-corner.tres" id="5_7cb4r"]
+[ext_resource type="Resource" uid="uid://ce3vrk6xjmeg6" path="res://structures/road-split.tres" id="6_u5kue"]
+[ext_resource type="Resource" uid="uid://m7f5a5orhqk6" path="res://structures/road-intersection.tres" id="7_et6k6"]
+[ext_resource type="Resource" uid="uid://dbkgp1que5lev" path="res://structures/pavement.tres" id="8_emany"]
+[ext_resource type="Resource" uid="uid://dfs0kt8qfqon7" path="res://structures/pavement-fountain.tres" id="9_x5kfa"]
+[ext_resource type="Resource" uid="uid://dqhain1h1wm3k" path="res://structures/building-small-a.tres" id="10_mevvf"]
+[ext_resource type="Resource" uid="uid://bajqcv126ix1s" path="res://structures/building-small-b.tres" id="11_lblsw"]
+[ext_resource type="Resource" uid="uid://tq3htrpw56d" path="res://structures/building-small-c.tres" id="12_1dkkk"]
+[ext_resource type="Resource" uid="uid://dntwo640wnqo5" path="res://structures/building-small-d.tres" id="13_e3j2h"]
+[ext_resource type="Resource" uid="uid://dwhg3pyfjjilu" path="res://structures/building-garage.tres" id="14_i7e7a"]
+[ext_resource type="Resource" uid="uid://biygvnoxm7cyj" path="res://structures/grass.tres" id="15_n3bwb"]
+[ext_resource type="Resource" uid="uid://2uabmuhn8xd4" path="res://structures/grass-trees.tres" id="16_qgb18"]
+[ext_resource type="Resource" uid="uid://b7ol52ytxamb6" path="res://structures/grass-trees-tall.tres" id="17_ex12y"]
+[ext_resource type="Script" path="res://scripts/View.cs" id="18_bggew"]
+[ext_resource type="Script" path="res://scripts/Planet.cs" id="19_qpqir"]
+[ext_resource type="Script" path="res://scripts/Camera.cs" id="20_5hby8"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_pmmnb"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1tvrq"]
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("Planet")]
+script = ExtResource("1_6qubp")
+Planet = NodePath("Planet")
+
+[node name="Builder" type="Node3D" parent="." node_paths=PackedStringArray("Selector", "SelectorContainer", "ViewCamera", "Gridmap", "CashDisplay")]
+visible = false
+script = ExtResource("2_jeyxv")
+Structures = [ExtResource("3_2slsx"), ExtResource("4_wrq3d"), ExtResource("5_7cb4r"), ExtResource("6_u5kue"), ExtResource("7_et6k6"), ExtResource("8_emany"), ExtResource("9_x5kfa"), ExtResource("10_mevvf"), ExtResource("11_lblsw"), ExtResource("12_1dkkk"), ExtResource("13_e3j2h"), ExtResource("14_i7e7a"), ExtResource("15_n3bwb"), ExtResource("16_qgb18"), ExtResource("17_ex12y")]
+Selector = NodePath("Selector")
+SelectorContainer = NodePath("Selector/Container")
+ViewCamera = NodePath("../View/Camera")
+Gridmap = NodePath("../GridMap")
+CashDisplay = NodePath("../CanvasLayer/Control/Cash")
+
+[node name="Selector" type="Node3D" parent="Builder"]
+
+[node name="Sprite" type="Sprite3D" parent="Builder/Selector"]
+
+[node name="Container" type="Node3D" parent="Builder/Selector"]
+
+[node name="View" type="Node3D" parent="."]
+transform = Transform3D(0.707107, -0.40558, 0.579228, 0, 0.819152, 0.573576, -0.707107, -0.40558, 0.579228, 0, 0, 0)
+visible = false
+script = ExtResource("18_bggew")
+
+[node name="Camera" type="Camera3D" parent="View"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
+fov = 20.0
+
+[node name="GridMap" type="GridMap" parent="."]
+visible = false
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CashIcon" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Cash" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.56574, 2.01693, 0)
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+mesh = SubResource("SphereMesh_pmmnb")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Node3D/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/MeshInstance3D/RigidBody3D"]
+shape = SubResource("SphereShape3D_1tvrq")
+
+[node name="Planet" type="Node3D" parent="."]
+script = ExtResource("19_qpqir")
+
+[node name="Root" type="MeshInstance3D" parent="Planet"]
+
+[node name="Camera" type="Camera3D" parent="Planet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+visible = false
+script = ExtResource("20_5hby8")

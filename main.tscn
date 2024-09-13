@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://vn2yt8g3tnob"]
+
+[ext_resource type="Script" path="res://scripts/main.cs" id="1_3ax6f"]
+[ext_resource type="Script" path="res://scripts/Planet.cs" id="19_p41av"]
+[ext_resource type="Script" path="res://scripts/Camera.cs" id="20_y2b36"]
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("Planet")]
+script = ExtResource("1_3ax6f")
+Planet = NodePath("Planet")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CashIcon" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Cash" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Planet" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00154692, -1.19209e-07, -0.0019176)
+script = ExtResource("19_p41av")
+TestValue = 1.0
+
+[node name="Root" type="MeshInstance3D" parent="Planet"]
+
+[node name="Camera" type="Camera3D" parent="Planet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
+visible = false
+script = ExtResource("20_y2b36")

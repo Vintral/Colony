@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Structure" load_steps=3 format=3 uid="uid://dwhg3pyfjjilu"]
+
+[ext_resource type="Script" path="res://scripts/Structure.cs" id="1_hqttu"]
+[ext_resource type="PackedScene" uid="uid://l2rgkyqs8i0p" path="res://models/building-garage.glb" id="1_sv45o"]
+
+[resource]
+script = ExtResource("1_hqttu")
+Model = ExtResource("1_sv45o")
+Price = 70
